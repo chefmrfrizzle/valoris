@@ -13,6 +13,7 @@ Phase 0 turns the original architecture ideas into a buildable decision boundary
 - `ACCEPTANCE_TEST_PLAN.md` — tests required before a first release candidate.
 - `COUNTERPARTY_ONBOARDING.md` — low-friction, risk-adaptive onboarding model.
 - `INNOVATION_BACKLOG.md` — realistic ideas ordered by evidence and dependency.
+- `NEXT_BUILD_PROMPTS.md` — copy-ready prompts sequenced behind explicit gates.
 - `LEARNING_EPISODE-0001.md` — evidence record for this work episode.
 - `audit/UX_AUDIT.md` — screenshot-backed review of the existing prototype.
 
