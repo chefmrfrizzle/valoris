@@ -1,7 +1,9 @@
-# Replace placeholder team names with real GitHub teams before enforcing.
-* @protocol-maintainers
-/SECURITY.md @security-maintainers
-/docs/SECURITY_ARCHITECTURE.md @security-maintainers
-/policies/ @protocol-maintainers @security-maintainers
-/schemas/ @protocol-maintainers
-/AGENTS.md @protocol-maintainers @security-maintainers
+# Bootstrap ownership uses the repository owner until dedicated maintainer
+# teams exist. Replace this account with least-privilege teams as the project grows.
+* @chefmrfrizzle
+/SECURITY.md @chefmrfrizzle
+/docs/SECURITY_ARCHITECTURE.md @chefmrfrizzle
+/policies/ @chefmrfrizzle
+/schemas/ @chefmrfrizzle
+/AGENTS.md @chefmrfrizzle
+/.github/ @chefmrfrizzle
