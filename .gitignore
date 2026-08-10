@@ -1,0 +1,32 @@
+# Operating-system and editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies, builds, caches, and logs
+node_modules/
+.next/
+dist/
+build/
+target/
+__pycache__/
+.pytest_cache/
+.venv/
+*.log
+coverage/
+
+# Local databases and scientific artifacts
+*.db
+*.sqlite
+artifacts/
+data/private/

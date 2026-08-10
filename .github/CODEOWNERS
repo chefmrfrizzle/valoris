@@ -1,0 +1,7 @@
+# Replace placeholder team names with real GitHub teams before enforcing.
+* @protocol-maintainers
+/SECURITY.md @security-maintainers
+/docs/SECURITY_ARCHITECTURE.md @security-maintainers
+/policies/ @protocol-maintainers @security-maintainers
+/schemas/ @protocol-maintainers
+/AGENTS.md @protocol-maintainers @security-maintainers
