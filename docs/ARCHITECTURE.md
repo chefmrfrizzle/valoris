@@ -78,7 +78,7 @@ The first slice must use safe public or synthetic data and one narrowly defined 
 1. a valid ProblemPassport;
 2. deterministic compilation to a WorkGraph;
 3. one locally executable TaskSpec;
-4. a signed execution receipt;
+4. an execution receipt whose unsigned structure is validated before signature work;
 5. verification against a declared policy;
 6. reproduction on a genuinely separate environment;
 7. one deliberate counterexample or failure case;
@@ -86,6 +86,8 @@ The first slice must use safe public or synthetic data and one narrowly defined 
 9. a LearningEpisode that converts the failure into a durable test.
 
 No payment rail, native token, anonymous arbitrary-code marketplace, restricted workload, or autonomous policy change is part of this slice.
+
+The deterministic local slice through Prompt 5 uses an unsigned receipt structure. A cryptographic signature becomes part of the vertical slice only after D-017 is accepted and Prompt 6 supplies approved key identifiers, lifecycle behavior, verification, and test vectors.
 
 ## Release boundary
 

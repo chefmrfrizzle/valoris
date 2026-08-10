@@ -25,6 +25,20 @@ Status values: `ACCEPTED`, `PROPOSED`, `DEFERRED`, `BLOCKED`
 | D-019 | BLOCKED | Independence policy for reproduction. | Must define organizational, operator, implementation, environment, and data independence for the first workload. |
 | D-020 | BLOCKED | Production retention periods. | Requires data owners, customer obligations, legal review, and storage architecture. |
 
+## Decision ownership
+
+| Decision | Accountable owner | Required independent authority | Ownership state |
+|---|---|---|---|
+| D-001–D-008, D-010, D-012–D-016 | Protocol maintainer (`@chefmrfrizzle`) | Security or domain review when the affected ADR/policy requires it. | ASSIGNED |
+| D-009 | Protocol maintainer (`@chefmrfrizzle`) | Computational-materials domain reviewer. | `BLOCKED_OWNER`: domain reviewer not assigned; Prompt 2 must identify the required expertise without inventing a person. |
+| D-011 | Protocol maintainer (`@chefmrfrizzle`) | Institutional security/IT design partner. | `BLOCKED_OWNER`: design-partner reviewer not assigned. |
+| D-017 | Protocol maintainer (`@chefmrfrizzle`) | Independent security/cryptography reviewer. | `BLOCKED_OWNER`: reviewer not assigned; no production signature suite may be selected. |
+| D-018 | Protocol maintainer (`@chefmrfrizzle`) | Named computational-materials domain reviewer. | `BLOCKED_OWNER`: reviewer not assigned and benchmark not selected. |
+| D-019 | Protocol maintainer (`@chefmrfrizzle`) | Independent security reviewer and institutional IT reviewer. | `BLOCKED_OWNER`: both reviewer roles are unassigned. |
+| D-020 | Protocol maintainer (`@chefmrfrizzle`) | Data owner and qualified legal/privacy reviewer. | `BLOCKED_OWNER`: both decision authorities are unassigned. |
+
+The protocol maintainer owns assignment and evidence collection but cannot substitute for a required independent authority.
+
 ## Required next ADRs
 
 1. Canonical serialization, identifier, and cryptographic agility profile.
