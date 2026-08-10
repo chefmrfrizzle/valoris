@@ -37,7 +37,7 @@ are complete.
 | [RFC 7696 / BCP 201](https://www.rfc-editor.org/rfc/rfc7696.html) requires explicit algorithm or suite identifiers for agility, cautions that identifiers alone are insufficient, and recommends small, changeable mandatory-to-implement sets. | Every digest and signature must be interpreted through an allowlisted, versioned profile; an algorithm label alone does not make a construction safe. |
 | [RFC 9864](https://www.rfc-editor.org/rfc/rfc9864.html) deprecates polymorphic JOSE/COSE algorithm identifiers in favor of fully specified identifiers and recommends single-algorithm keys. | Signature-suite identifiers must bind all security-relevant parameters. Generic names that change meaning from key context are not acceptable. No concrete suite is selected here. |
 | [RFC 6920](https://www.rfc-editor.org/rfc/rfc6920.html) includes the hash algorithm in a named-information identifier and warns that a content digest provides integrity, not authority or confidentiality. | Content identifiers need algorithm and profile context and must never be treated as signatures, permissions, or secrecy controls. |
-| [RFC 9421](https://www.rfc-editor.org/rfc/rfc9421.html) covers verification-affecting signature metadata such as algorithm, creation, expiry, key identifier, nonce, and application tag. | Any comparable Valoris metadata must be integrity-protected and checked against an application allowlist. This is design guidance, not adoption of HTTP Message Signatures. |
+| [RFC 9421](https://www.rfc-editor.org/rfc/rfc9421.html) defines protected signature parameters such as creation, expiry, key identifier, nonce, and application tag; it permits algorithm resolution from several locations and requires disagreement to fail. It warns that runtime `alg` signaling can enable confusion or substitution. | Comparable Valoris metadata must be integrity-protected and checked against an application allowlist. Suite resolution must agree across every source and should not be attacker-negotiated. This is design guidance, not adoption of HTTP Message Signatures. |
 | [NIST SP 800-57 Part 1 Rev. 5](https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final) covers key lifecycle and compromise handling. [SP 800-131A Rev. 2](https://csrc.nist.gov/pubs/sp/800/131/a/r2/final) remains the current final transition guidance; [Rev. 3](https://csrc.nist.gov/pubs/sp/800/131/a/r3/ipd) is an initial public draft. | Algorithm selection cannot precede a key lifecycle, transition plan, threat model, and current standards review. Draft guidance is tracked but not represented as final. |
 
 ### Event identity, delegation, and revocation
@@ -73,7 +73,8 @@ are complete.
 
 1. `-0` and `0` collapsing to identical bytes without rejection.
 2. Duplicate JSON member names interpreted differently by two parsers.
-3. An unsafe integer rounded before hashing.
+3. A numeric token rounded or aliased before the application checks whether its
+   domain permits binary64 semantics.
 4. A producer relabeling canonical bytes under another schema or
    canonicalization profile.
 5. A generic signature algorithm interpreted differently from key context.
@@ -85,6 +86,13 @@ are complete.
     signing-time validity and current trust separately.
 11. A second account, process, or machine under the same control presented as an
     independent reproducer.
+12. An event producer evading deduplication by rebinding its source namespace.
+13. Delegation widened through wildcard, exclusion, case, Unicode, or URI
+    normalization differences.
+14. A revocation race between authorization and execution, or a backdated
+    revocation interpreted without an explicit audit-time perspective.
+15. An external operator presented as fully independent despite shared
+    organization, funding, supervision, implementation, or infrastructure.
 
 ## Unresolved decisions and owners
 

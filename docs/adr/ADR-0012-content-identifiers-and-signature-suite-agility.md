@@ -45,15 +45,18 @@ concatenation:
 1. a Valoris content-identifier profile and version;
 2. an object domain/type and schema version;
 3. a canonicalization profile;
-4. a fully specified digest algorithm identifier;
-5. digest length and encoding; and
+4. a digest algorithm/profile identifier that fixes every parameter, including
+   whether truncation is permitted and the exact output length;
+5. a canonical identifier encoding; and
 6. the digest value.
 
 The digest preimage would use explicit domain separation for the Valoris
 protocol, object type, schema version, and canonicalization profile. The exact
-framing, wire grammar, digest algorithm, digest length, and text/binary encoding
-are all `BLOCKED_UNVERIFIED`. They must be frozen by golden vectors and reviewed
-before an identifier is emitted.
+framing, wire grammar, digest algorithm, digest length, truncation policy, and
+text/binary encoding are all `BLOCKED_UNVERIFIED`. They must be frozen by golden
+vectors and reviewed before an identifier is emitted. Digest length is never an
+attacker-selected runtime option: a permitted length belongs to a separately
+registered profile.
 
 Objects cannot contain their own content identifier inside the bytes used to
 derive that identifier. References, signatures, and envelope fields require an
@@ -72,9 +75,22 @@ creation time, expiry when present, nonce when present, and purpose—must be
 inside the protected commitment. The exact envelope remains
 `BLOCKED_UNVERIFIED`.
 
+An envelope parser would reject duplicate signature labels, duplicate protected
+parameters, unprotected copies of protected parameters, ambiguous key lookup,
+and signatures that can be moved between envelope positions or object types.
+The acceptance policy must identify the exact signature set and threshold
+required for the operation; "at least one valid signature" is not a safe
+default.
+
 Verifiers use an application policy allowlist. Unknown, ambiguous, deprecated
 for the relevant time, or context-incompatible suites fail closed. There is no
 opportunistic negotiation or fallback to a weaker algorithm.
+
+Algorithm or suite selection is bound to the protected evidence and to an
+independently obtained verifier policy version. A signer cannot authorize a new
+algorithm merely by naming it in signed content. If algorithm information is
+available from the envelope, key, registry, or policy in more than one place,
+every resolved value must agree or verification fails.
 
 ### Transition and deprecation
 
@@ -84,6 +100,13 @@ evidence. A transition may require dual signatures or dual content commitments,
 but the acceptance rule, cutover times, and downgrade protections must be
 explicit. Two digests do not become the same identifier merely because a
 migration relates them.
+
+Transition evidence must itself resist stripping. If policy requires both an
+old and a new suite, removing either signature or its required-suite declaration
+causes failure. If policy accepts either suite during a window, that exact
+window and policy version must be external to attacker-controlled content and
+auditable. A weak historical signature cannot satisfy a current-operation gate
+merely because it remains parseable.
 
 Emergency deprecation, key rotation, compromise handling, cryptoperiods,
 retention, and verification after retirement belong to the key-lifecycle policy
@@ -111,7 +134,8 @@ No choice is made for:
    downgrade, key substitution, parser differential, replay, and compromised
    key scenarios.
 2. Cross-language vectors cover domain separation, every committed field,
-   malformed prefixes, wrong lengths, unknown suites, and transition cases.
+   malformed prefixes, wrong or truncated lengths, duplicate parameters,
+   signature reordering/stripping, unknown suites, and transition cases.
 3. Independent cryptography review approves the exact constructions and key
    lifecycle.
 4. At least two implementations verify the same positive and negative vectors.

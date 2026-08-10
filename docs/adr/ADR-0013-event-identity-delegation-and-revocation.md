@@ -29,14 +29,26 @@ An event occurrence is uniquely identified within its source by the pair
 `event_source` and `event_id`. These names are conceptual until schemas exist.
 Event identity is independent of the event payload's content identifier.
 
-- A byte-for-byte retransmission of the same occurrence retains the same event
-  identity and is deduplicated.
+The source is a security boundary, not a producer-chosen free-form collision
+escape. A future policy must authorize stable source namespaces, canonicalize
+their identifiers, bind a producer to its permitted source, and reject source
+rebinding. Otherwise, the same producer could evade deduplication by changing
+`event_source`, or another producer could impersonate a trusted namespace.
+
+- A retransmission that the producer declares to be the same occurrence retains
+  the same event identity and is deduplicated. Payload equality alone does not
+  prove that two deliveries represent the same occurrence.
 - A new attempt, observation, decision, correction, or transformation receives
   a new event identity and references its cause or predecessor.
 - A correction never overwrites the earlier event. It appends a superseding or
   corrective event and preserves both.
 - Event identifiers are opaque. Timestamp ordering, if encoded, is not trusted
   as causal or authorization evidence.
+
+Source and event identifiers must not contain secrets or unnecessary personal,
+tenant, host, network, or laboratory information. Time-ordered identifiers can
+leak creation time and activity volume; that privacy tradeoff is part of the
+blocked identifier decision.
 
 An event would declare its source, identifier, type/version, data-schema
 identity, subject, actor, content commitment, occurrence time, recording time,
@@ -69,9 +81,22 @@ Child authority must be a subset of valid parent authority. No delegation is
 implicit, transitive by default, perpetual by omission, or widened by an
 unrecognized field.
 
+"Subset" requires a formal, canonical comparison for action, resource, audience,
+purpose, time, and delegation depth. Wildcards, exclusions, case differences,
+Unicode aliases, URI normalization, and incomparable constraint languages are
+common escalation paths. A verifier that cannot prove every child dimension is
+no broader than its parent fails closed. The absence of an explicit
+further-delegation grant means redelegation is forbidden.
+
 Authentication is never sufficient authorization. Verification must establish
 the key's allowed purpose, actor/controller relationship, complete delegation
 chain, audience, scope, time, resource, replay status, and revocation state.
+
+Authorization is bound to the exact event, operation, policy version, delegation
+chain, and evaluated status evidence. If authorization and execution are
+separated, the policy must define whether status is rechecked at execution and
+how a stale authorization decision expires; otherwise revocation races create a
+time-of-check/time-of-use bypass.
 
 ### Revocation and historical trust
 
@@ -79,6 +104,13 @@ Revocation is an append-only event targeting an exact key, delegation, or
 capability identifier. It records issuer, authority, effective time or interval,
 reason class, and predecessor where applicable. A revocation may cascade only
 when the governing policy says exactly which descendants become invalid.
+
+The revocation issuer must prove authority over the target and revocation
+purpose. The event separately records issuance time, claimed effective time,
+observation/recording time, and the time authority or evidence used for each.
+Backdated, future-dated, or late-observed revocations are not silently trusted;
+policy must state how they affect decisions made before the revocation was
+observable.
 
 Verification reports at least two separate conclusions:
 
@@ -92,9 +124,21 @@ A later revocation does not silently mutate an old event. A compromise policy
 may declare a key untrusted for an explicit earlier interval, but that is a new,
 auditable policy conclusion linked to the preserved cryptographic evidence.
 
+Historical reports must identify the query perspective: trust as known at the
+original decision time, trust as known at a later audit time, and current trust
+can differ. `occurred_at`, signer creation time, recording time, revocation
+effective time, and verifier observation time are not interchangeable, and no
+one of them is trusted merely because it is signed.
+
 High-risk operations fail closed when required status or delegation evidence is
 unavailable. Exact caching, offline operation, freshness, availability, privacy,
 and recovery behavior remain blocked.
+
+Actor and delegation chains can expose employment, collaboration, funding, and
+institutional relationships. The future model must minimize public identifiers,
+separate public proof from restricted audit evidence, define retention and
+access, and prevent status lookups from becoming a correlation channel. No
+selective-disclosure or status mechanism is selected here.
 
 ## `BLOCKED_UNVERIFIED` choices
 
@@ -105,13 +149,17 @@ or cryptographic suite.
 
 ## Required evidence before acceptance
 
-1. Tests cover retry deduplication, concurrent creation, corrections,
-   transformations, clock rollback, ID collisions, and privacy leakage.
+1. Tests cover retry deduplication, source rebinding, concurrent creation,
+   corrections, transformations, clock rollback, ID collisions, timestamp and
+   volume leakage, and identifier correlation.
 2. Authorization matrices cover subject/actor separation, nested delegation,
    audience and purpose mismatch, expiry, parent narrowing, forbidden
-   escalation, replay, and incomplete chains.
+   escalation, wildcard/normalization ambiguity, incomparable constraints,
+   redelegation, replay, and incomplete chains.
 3. Revocation tests cover prospective revocation, compromise intervals,
-   cascading policy, stale/unavailable status, recovery, and historical replay.
+   cascading policy, stale/unavailable status, backdating, future dating,
+   time-of-check/time-of-use races, recovery, and historical replay from each
+   declared query perspective.
 4. Projection rebuilds reproduce the same state solely from append-only events.
 5. Independent security/identity and institutional IT reviewers approve the
    model and operational failure behavior.

@@ -38,7 +38,7 @@ Status values: `ACCEPTED`, `PROPOSED`, `DEFERRED`, `BLOCKED`
 | D-011 | Protocol maintainer (`@chefmrfrizzle`) | Institutional security/IT design partner. | `BLOCKED_OWNER`: design-partner reviewer not assigned. |
 | D-017 | Protocol maintainer (`@chefmrfrizzle`) | Independent security/cryptography reviewer. | `BLOCKED_OWNER`: reviewer not assigned; no production signature suite may be selected. |
 | D-018 | Protocol maintainer (`@chefmrfrizzle`) | Named computational-materials domain reviewer. | `BLOCKED_OWNER`: reviewer not assigned and the proposed benchmark is not adopted. |
-| D-019 | Protocol maintainer (`@chefmrfrizzle`) | Independent security reviewer and institutional IT reviewer. | `BLOCKED_OWNER`: both reviewer roles are unassigned. |
+| D-019 | Protocol maintainer (`@chefmrfrizzle`) | Independent security reviewer, institutional IT reviewer, and workload-domain reviewer. | `BLOCKED_OWNER`: all reviewer roles are unassigned; account or machine separation under common control cannot satisfy them. |
 | D-020 | Protocol maintainer (`@chefmrfrizzle`) | Data owner and qualified legal/privacy reviewer. | `BLOCKED_OWNER`: both decision authorities are unassigned. |
 | D-021 | Protocol maintainer (`@chefmrfrizzle`) | Independent computational-crystallography reviewer. | `BLOCKED_OWNER`: reviewer not assigned; see ADR-0010 and `BENCHMARK_SELECTION.md`. |
 | D-022 | Protocol maintainer (`@chefmrfrizzle`) | Reproduction reviewer under the future D-019 policy. | `BLOCKED_EVIDENCE`: reviewer/matrix not approved and no Linux-x86_64 run exists. |
@@ -46,6 +46,11 @@ Status values: `ACCEPTED`, `PROPOSED`, `DEFERRED`, `BLOCKED`
 | D-024 | Protocol maintainer (`@chefmrfrizzle`) | Independent security/identity reviewer and institutional IT reviewer. | `BLOCKED_OWNER`: both reviewer roles are unassigned; all concrete identity, status, and cryptographic mechanisms remain `BLOCKED_UNVERIFIED`. |
 
 The protocol maintainer owns assignment and evidence collection but cannot substitute for a required independent authority.
+
+For Prompt 3, the interoperability/security, cryptography, identity/institutional
+IT, and computational-materials methodology seats must be held by separate
+qualified people outside the maintainer's control. `@11BUSD` is disclosed as the
+same operator and is ineligible for all four seats.
 
 ## Solo-maintainer governance exception (Prompt 1 / Prompt 2 only)
 

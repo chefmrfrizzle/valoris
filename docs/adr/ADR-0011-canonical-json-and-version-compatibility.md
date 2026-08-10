@@ -33,12 +33,15 @@ following:
    language runtime can overwrite or merge values.
 3. Strings contain valid interoperable Unicode and are preserved as parsed;
    canonicalization performs no Unicode normalization.
-4. Numbers are finite values that round-trip through the RFC 8785 binary64
-   serialization model without a change of intended value.
+4. A strict decoder maps each JSON number token to binary64 using the exact
+   conversion and rounding behavior required by the canonicalization profile.
+   The source number token is retained through validation so implementations
+   can test boundary and alias cases before discarding it.
 5. Negative zero is rejected, implementing verified RFC 8785 erratum 7920.
-6. Exact integers outside `[-9007199254740991, 9007199254740991]` and exact
-   decimal quantities outside the admitted numeric profile use schema-defined
-   strings, not JSON numbers.
+6. Exact integers outside `[-9007199254740991, 9007199254740991]`, quantities
+   whose meaning depends on their source spelling, and decimal quantities whose
+   domain cannot tolerate binary64 rounding use schema-defined strings, not
+   JSON numbers.
 7. The object conforms to an immutable, explicitly identified schema resource.
 8. Unknown fields fail unless the schema defines an explicit extension point.
    Hash-critical processors do not silently drop or reinterpret extensions.
@@ -46,6 +49,14 @@ following:
 Canonical output would use the RFC 8785 transformation: ECMAScript-compatible
 primitive serialization, recursive object-property sorting by UTF-16 code
 units, array order preserved, no insignificant whitespace, and UTF-8 encoding.
+
+Canonicalization commits to the parsed numeric value, not to the original JSON
+number spelling. Equivalent spellings such as `1`, `1.0`, and `1e0` are therefore
+expected to converge. The protocol cannot determine a sender's "intended"
+value after parsing. Any domain that needs lexical fidelity, decimal arithmetic,
+units-preserving quantities, or exact values outside the safe integer range must
+use a schema-defined string form. Golden vectors must expose rounding aliases
+on both sides of every admitted boundary.
 
 The exact canonicalization-profile identifier is not selected by this ADR. It
 must be carried in, or unambiguously bound by, any content-identifier or
@@ -71,7 +82,8 @@ surface with stricter hash-history rules:
   commitment-scope, or verification change.
 - **Minor:** an explicitly backward-compatible capability added at a declared
   extension point. Existing canonical objects retain their original bytes and
-  meaning.
+  meaning, but an older verifier does not infer that it can accept a newer minor
+  object.
 - **Patch:** editorial clarification or correction that does not change the set
   of accepted instances, canonical bytes, field meaning, or verification
   result. A behavioral fix requires a new schema resource and non-patch release.
@@ -82,6 +94,13 @@ version comparison or best-effort parsing. Unknown major versions, unknown
 critical extensions, missing historical schemas, and ambiguous downgrades fail
 closed.
 
+Semantic Versioning labels are release metadata, not proof of wire
+compatibility. The compatibility matrix is authoritative for each producer,
+consumer, object type, extension point, and verification operation. A newer
+minor release can be backward-compatible for producers while still requiring an
+older security verifier to reject objects containing semantics it cannot
+evaluate.
+
 ### Historical interpretation
 
 Released schema resources and canonicalization profiles are immutable. A new
@@ -90,11 +109,18 @@ auditable verifier capable of interpreting historical objects under their
 original rules. Migration creates a new object and an explicit relationship to
 its predecessor; it never changes the predecessor's bytes or identity.
 
+Historical interpretability is not current acceptability. A verifier must
+report separately that an old object parses and verifies under its original
+profile and whether current policy still trusts that profile for the requested
+operation. Deprecated code paths must be isolated and unavailable for new
+issuance.
+
 ## Required evidence before acceptance
 
 1. Golden vectors cover nested sorting, array preservation, escaping, UTF-8,
-   UTF-16 ordering, duplicate names, invalid Unicode, negative zero, numeric
-   boundaries, unsafe integers, and schema/version mismatches.
+   UTF-16 ordering, duplicate names, invalid Unicode, negative zero, equivalent
+   number spellings, binary64 rounding aliases, numeric boundaries, unsafe
+   integers, and schema/version mismatches.
 2. At least two independently maintained language implementations produce the
    same bytes or the same rejection for every vector.
 3. A compatibility matrix demonstrates major, minor, patch, extension,

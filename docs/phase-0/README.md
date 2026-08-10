@@ -19,12 +19,17 @@ Phase 0 turns the original architecture ideas into a buildable decision boundary
 - `PROMPT_3_SPECIFICATION_REVIEW.md` — current primary-specification findings,
   proposal/fact separation, failure cases, and blocked decision owners for
   canonicalization, identity, cryptographic agility, and independence.
+- `PROMPT_3_REVIEW_GATE.md` — exact-head audit evidence, source-by-source
+  verification, resolved proposal defects, and four unfilled independent-review
+  seats.
 - `LEARNING_EPISODE-0001.md` — evidence record for this work episode.
 - `LEARNING_EPISODE-0002.md` — readiness-review failures, fixes, and promotion blocker.
 - `LEARNING_EPISODE-0003.md` — review-feedback corrections and the research-only governance exception.
 - `LEARNING_EPISODE-0004.md` — benchmark research and the C/Python lattice-convention counterexample.
 - `LEARNING_EPISODE-0005.md` — Prompt 3 standards findings and preserved
   ambiguity, downgrade, revocation, and independence counterexamples.
+- `LEARNING_EPISODE-0006.md` — Prompt 3 gate audit and the corrected
+  numeric/version, downgrade, delegation/time, privacy, and independence risks.
 - `audit/UX_AUDIT.md` — screenshot-backed review of the existing prototype.
 
 ## Exit criteria
