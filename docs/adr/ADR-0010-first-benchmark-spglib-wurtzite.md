@@ -90,4 +90,3 @@ D-018 has an independently approved policy.
 This ADR does not authorize schemas, adapters, workers, signing, payment,
 settlement, production infrastructure, confidential data, or scientific
 acceptance policy.
-

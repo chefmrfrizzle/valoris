@@ -411,4 +411,3 @@ All web sources were checked on 2026-08-10.
 - [Original elastic-properties data descriptor](https://doi.org/10.1038/sdata.2015.9)
 - [Current Materials Project download/access documentation](https://docs.materialsproject.org/downloading-data/how-do-i-download-the-materials-project-database)
 - [Current API authentication documentation](https://docs.materialsproject.org/downloading-data/using-the-api/getting-started)
-
