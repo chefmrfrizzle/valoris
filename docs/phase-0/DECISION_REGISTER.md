@@ -39,6 +39,20 @@ Status values: `ACCEPTED`, `PROPOSED`, `DEFERRED`, `BLOCKED`
 
 The protocol maintainer owns assignment and evidence collection but cannot substitute for a required independent authority.
 
+## Solo-maintainer governance exception (Prompt 1 / Prompt 2 only)
+
+`@11BUSD` approval can satisfy GitHub's separate-account enforcement for repository workflow gating, but it does **not** constitute independent-person assurance.
+
+Allowed with this exception:
+- Prompt 2 research and decision preparation only (no production implementation).
+
+Not allowed with this exception:
+- approving production signature suite and key lifecycle (D-017),
+- approving scientific acceptance policy (D-018),
+- approving reproduction independence policy (D-019),
+- approving production retention/legal gates (D-020),
+- authorizing confidential customer/production workload promotion.
+
 ## Required next ADRs
 
 1. Canonical serialization, identifier, and cryptographic agility profile.

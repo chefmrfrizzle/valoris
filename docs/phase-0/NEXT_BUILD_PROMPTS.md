@@ -1,5 +1,13 @@
 # Gated Next-Build Prompts
 
+## Known limitations of this Phase 0 package
+
+- Independent security/cryptography reviewer is not yet assigned for D-017.
+- Computational-materials domain reviewer is not yet assigned for benchmark acceptance decisions.
+- Institutional IT/security and legal/privacy decision authorities are not yet assigned for D-019/D-020.
+- Current UX evidence is from static prototype audit; onboarding and accessibility flows are not production-validated.
+- `BLOCKED` decisions are explicit stop-gates and may not be bypassed for speed/funding pressure.
+
 Run one prompt at a time. Do not start a later prompt until the prior gate is reviewed and merged. Never invent packages, APIs, citations, research results, customer demand, benchmark numbers, or security guarantees.
 
 ## Prompt 1 — Resolve the Phase 0 gate

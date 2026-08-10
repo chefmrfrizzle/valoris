@@ -55,3 +55,18 @@ Unassigned roles are deliberate blockers, not permission for the protocol mainta
 ## Prompt 2 entry gate
 
 Prompt 2 may begin only when AR-001 through AR-004 are verified by executable checks, AR-005 is resolved by the required GitHub approval, and the public Prompt 1 pull request is merged. The solo-maintainer limitation remains a blocker for later security, scientific-policy, confidential-data, and production gates. Until the Prompt 2 conditions are met, the gate is `NO_GO`.
+
+## Prompt 2 entry gate — objective checklist
+
+- [ ] `tests/test_repository_baseline.sh` passes locally.
+- [ ] `Repository baseline` workflow passes in GitHub Actions for this PR.
+- [ ] A non-author eligible reviewer account records approval on the final commit.
+- [ ] All review conversations are resolved.
+- [ ] PR is merged without owner-bypass.
+
+### Gate evidence pointers
+
+- Local test output: `tests/test_repository_baseline.sh`
+- CI run: `.github/workflows/repository-baseline.yml`
+- Approval record: PR review timeline on `pull/2`
+- Conversation resolution: PR review threads

@@ -1,5 +1,7 @@
 # Evidence-Driven Innovation Backlog
 
+See INNOVATION_GUARDRAILS.md before promoting any backlog item.
+
 These ideas improve trust or counterparty experience without expanding V1 into a speculative marketplace. Each item needs a named hypothesis, safe fixture, baseline, and kill criterion before implementation.
 
 ## Now — first vertical slice
