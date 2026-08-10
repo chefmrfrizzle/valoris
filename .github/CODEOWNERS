@@ -1,9 +1,9 @@
 # Bootstrap ownership uses the repository owner until dedicated maintainer
 # teams exist. Replace this account with least-privilege teams as the project grows.
-* @chefmrfrizzle
-/SECURITY.md @chefmrfrizzle
-/docs/SECURITY_ARCHITECTURE.md @chefmrfrizzle
-/policies/ @chefmrfrizzle
-/schemas/ @chefmrfrizzle
-/AGENTS.md @chefmrfrizzle
-/.github/ @chefmrfrizzle
+* @chefmrfrizzle @11BUSD
+/SECURITY.md @chefmrfrizzle @11BUSD
+/docs/SECURITY_ARCHITECTURE.md @chefmrfrizzle @11BUSD
+/policies/ @chefmrfrizzle @11BUSD
+/schemas/ @chefmrfrizzle @11BUSD
+/AGENTS.md @chefmrfrizzle @11BUSD
+/.github/ @chefmrfrizzle @11BUSD
