@@ -24,18 +24,22 @@ Status values: `ACCEPTED`, `PROPOSED`, `DEFERRED`, `BLOCKED`
 | D-018 | BLOCKED | Scientific acceptance policy for the first workload. | Requires the selected benchmark and a named domain reviewer. |
 | D-019 | BLOCKED | Independence policy for reproduction. | Must define organizational, operator, implementation, environment, and data independence for the first workload. |
 | D-020 | BLOCKED | Production retention periods. | Requires data owners, customer obligations, legal review, and storage architecture. |
+| D-021 | BLOCKED | Adopt the pinned `spglib` wurtzite workload as the first technical benchmark. | ADR-0010 is proposed. Requires a named computational-crystallography reviewer to approve the exact input convention, tolerance/challenge suite, discrete outputs, and technical claim boundary. |
+| D-022 | BLOCKED | Freeze the first benchmark environment and second-machine matrix. | Requires exact runtime/dependency/artifact hashes plus successful macOS-arm64 and Linux-x86_64 evidence; D-019 must decide whether that evidence is independently reproduced. |
 
 ## Decision ownership
 
 | Decision | Accountable owner | Required independent authority | Ownership state |
 |---|---|---|---|
 | D-001–D-008, D-010, D-012–D-016 | Protocol maintainer (`@chefmrfrizzle`) | Security or domain review when the affected ADR/policy requires it. | ASSIGNED |
-| D-009 | Protocol maintainer (`@chefmrfrizzle`) | Computational-materials domain reviewer. | `BLOCKED_OWNER`: domain reviewer not assigned; Prompt 2 must identify the required expertise without inventing a person. |
+| D-009 | Protocol maintainer (`@chefmrfrizzle`) | Computational-materials domain reviewer. | `BLOCKED_OWNER`: Prompt 2 identified the required expertise, but a named reviewer is not assigned. |
 | D-011 | Protocol maintainer (`@chefmrfrizzle`) | Institutional security/IT design partner. | `BLOCKED_OWNER`: design-partner reviewer not assigned. |
 | D-017 | Protocol maintainer (`@chefmrfrizzle`) | Independent security/cryptography reviewer. | `BLOCKED_OWNER`: reviewer not assigned; no production signature suite may be selected. |
-| D-018 | Protocol maintainer (`@chefmrfrizzle`) | Named computational-materials domain reviewer. | `BLOCKED_OWNER`: reviewer not assigned and benchmark not selected. |
+| D-018 | Protocol maintainer (`@chefmrfrizzle`) | Named computational-materials domain reviewer. | `BLOCKED_OWNER`: reviewer not assigned and the proposed benchmark is not adopted. |
 | D-019 | Protocol maintainer (`@chefmrfrizzle`) | Independent security reviewer and institutional IT reviewer. | `BLOCKED_OWNER`: both reviewer roles are unassigned. |
 | D-020 | Protocol maintainer (`@chefmrfrizzle`) | Data owner and qualified legal/privacy reviewer. | `BLOCKED_OWNER`: both decision authorities are unassigned. |
+| D-021 | Protocol maintainer (`@chefmrfrizzle`) | Independent computational-crystallography reviewer. | `BLOCKED_OWNER`: reviewer not assigned; see ADR-0010 and `BENCHMARK_SELECTION.md`. |
+| D-022 | Protocol maintainer (`@chefmrfrizzle`) | Reproduction reviewer under the future D-019 policy. | `BLOCKED_EVIDENCE`: reviewer/matrix not approved and no Linux-x86_64 run exists. |
 
 The protocol maintainer owns assignment and evidence collection but cannot substitute for a required independent authority.
 
