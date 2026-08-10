@@ -21,6 +21,8 @@ Public receipt verification must remain possible without access to zones 2–4.
 
 ```text
 ProblemPassport
+    ↓ funded or authorized as
+WorkRequest
     ↓ compiled by a versioned TaskAdapter
 WorkGraph
     ↓ immutable task commitments
@@ -76,14 +78,15 @@ Provenance exports should map protocol entities, activities, agents, derivations
 The first slice must use safe public or synthetic data and one narrowly defined computational-materials benchmark. It must demonstrate:
 
 1. a valid ProblemPassport;
-2. deterministic compilation to a WorkGraph;
-3. one locally executable TaskSpec;
-4. an execution receipt whose unsigned structure is validated before signature work;
-5. verification against a declared policy;
-6. reproduction on a genuinely separate environment;
-7. one deliberate counterexample or failure case;
-8. a browsable evidence path;
-9. a LearningEpisode that converts the failure into a durable test.
+2. a funded or authorized WorkRequest bound to that ProblemPassport;
+3. deterministic compilation of the WorkRequest to a WorkGraph;
+4. one locally executable TaskSpec;
+5. an execution receipt whose unsigned structure is validated before signature work;
+6. verification against a declared policy;
+7. reproduction on a genuinely separate environment;
+8. one deliberate counterexample or failure case;
+9. a browsable evidence path;
+10. a LearningEpisode that converts the failure into a durable test.
 
 No payment rail, native token, anonymous arbitrary-code marketplace, restricted workload, or autonomous policy change is part of this slice.
 

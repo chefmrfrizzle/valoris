@@ -16,6 +16,8 @@ Phase 0 turns the original architecture ideas into a buildable decision boundary
 - `INNOVATION_GUARDRAILS.md` — expansion guardrails and stop criteria.
 - `NEXT_BUILD_PROMPTS.md` — copy-ready prompts sequenced behind explicit gates.
 - `LEARNING_EPISODE-0001.md` — evidence record for this work episode.
+- `LEARNING_EPISODE-0002.md` — readiness-review failures, fixes, and promotion blocker.
+- `LEARNING_EPISODE-0003.md` — review-feedback corrections and the research-only governance exception.
 - `audit/UX_AUDIT.md` — screenshot-backed review of the existing prototype.
 
 ## Exit criteria

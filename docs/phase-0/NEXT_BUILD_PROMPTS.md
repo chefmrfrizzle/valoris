@@ -24,11 +24,11 @@ Run one prompt at a time. Do not start a later prompt until the prior gate is re
 
 ## Prompt 4 — Implement canonical schemas and golden vectors
 
-> Implement the smallest canonical schemas required for ProblemPassport, WorkRequest, WorkGraph, TaskSpec, CapabilityManifest, ExecutionReceipt, VerificationReceipt, ReproductionAttempt, Challenge, Counterexample, AcceptanceReceipt, and LearningEpisode. Add valid/invalid fixtures, canonical-byte golden vectors, property tests, numeric-boundary tests, compatibility tests, and public/private leak checks. Use public or synthetic data only. Record failures as LearningEpisodes.
+> Implement the smallest canonical schemas required for ProblemPassport, WorkRequest, WorkGraph, TaskSpec, CapabilityManifest, ExecutionReceipt, VerificationReceipt, ReproductionAttempt, Challenge, Counterexample, AcceptanceReceipt, Claim, ClaimStateTransition, and LearningEpisode. Add valid/invalid fixtures, canonical-byte golden vectors, property tests, numeric-boundary tests, compatibility tests, and public/private leak checks. Use public or synthetic data only. Record failures as LearningEpisodes.
 
 ## Prompt 5 — Build one deterministic local slice
 
-> Implement the selected benchmark from ProblemPassport through TaskAdapter, WorkGraph, one bounded local worker, output commitment, and unsigned receipt structure. Pin and record the execution environment. Enforce resource/network/filesystem limits. Prove deterministic identifiers and replay safety. Do not call receipts cryptographically signed until the approved signature gate passes.
+> Implement the selected benchmark from ProblemPassport through an authorized WorkRequest, TaskAdapter, WorkGraph, one bounded local worker, output commitment, unsigned receipt structure, Claim, and append-only ClaimStateTransition. Pin and record the execution environment. Enforce resource/network/filesystem limits. Prove deterministic identifiers and replay safety. Do not advance scientific acceptance or call receipts cryptographically signed until their respective policy and signature gates pass.
 
 ## Prompt 6 — Add verification and signed receipts
 

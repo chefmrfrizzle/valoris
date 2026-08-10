@@ -17,9 +17,25 @@ For every work episode:
 5. **Validate** — compile, lint, type-check, unit test, property test, fuzz/invariant test where relevant, integration test, security checks.
 6. **Evaluate** — run the relevant eval suite and compare against the recorded baseline.
 7. **Record** — append a `LearningEpisode` containing inputs, outputs, failures, metrics, decisions, and artifacts.
-8. **Propose** — produce a reviewable change/PR. Do not self-merge protected changes.
+8. **Propose** — produce a reviewable change/PR. Do not self-merge protected changes except under the narrow research-only solo-maintainer exception in ADR-0009.
 9. **Promote only through gates** — required checks and policy approvals decide promotion.
 10. **Observe** — after release/canary, collect telemetry and feed the next episode.
+
+## Research-only solo-maintainer exception
+
+Until a genuinely independent maintainer is available, the repository owner may use a separately authenticated, disclosed account to satisfy GitHub's review mechanism only when the merge unlocks a research-only gate and every changed artifact is either public research/planning documentation or repository-only guardrail automation that cannot write repository contents, access secrets, publish artifacts, deploy, or execute protocol/customer workloads.
+
+The exception requires:
+
+- an accepted, public ADR defining its scope and expiration;
+- passing required checks on the final commit;
+- all review conversations resolved;
+- explicit disclosure that both accounts share one operator;
+- any changed guardrail automation only narrows permissions, rejects unsafe changes, or tests those controls;
+- no administrator or branch-protection bypass; and
+- a merge commit that retains the review and CI evidence.
+
+The exception cannot approve or merge implementation, executable schemas, security or cryptographic policy, scientific acceptance policy, confidential/restricted data handling, production configuration, releases, deployment, settlement, or changes to constitutional protocol invariants. Those changes remain blocked on a genuinely independent qualified reviewer. The exception expires when an eligible independent maintainer is available and must not be used to claim independent-person assurance.
 
 ## Self-learning rule
 
