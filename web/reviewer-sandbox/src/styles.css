@@ -351,16 +351,33 @@ footer { color: #6d768d; font-size: 9px; padding: 20px 0 0; display: flex; justi
 }
 
 @media (max-width: 600px) {
-  .topbar { display: flex; flex-wrap: wrap; gap: 10px; }
-  .brand-lockup { flex: 1; }
-  .brand-lockup strong { font-size: 14px; }
-  .perspective-button { padding: 8px 10px; }
-  .global-warning { order: 3; width: 100%; }
+  .topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .brand-lockup { grid-column: 1; grid-row: 1; width: 100%; }
+  .brand-lockup strong { font-size: 14px; white-space: normal; }
+  .perspective-button {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: stretch;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 0;
+    padding: 9px 12px;
+    text-align: left;
+    white-space: normal;
+  }
+  .global-warning { grid-column: 1; grid-row: 3; width: 100%; }
   .page-shell { padding-inline: 12px; }
   .role-selector { grid-template-columns: 1fr 1fr; gap: 7px; }
   .role-button { font-size: 10px; padding: 9px 7px; }
-  .walkthrough-steps { padding: 10px 13px; }
-  .step-button { min-width: 150px; }
+  .walkthrough-steps { padding: 10px 13px; overflow-x: hidden; }
+  .walkthrough-steps .step-wrap { display: none; width: 100%; }
+  .walkthrough-steps .step-wrap.is-current { display: flex; }
+  .walkthrough-steps .step-button { min-width: 0; width: 100%; }
+  .walkthrough-steps .step-connector { display: none; }
   .step-number { width: 34px; height: 34px; }
   .workspace-grid { margin-top: 12px; }
   .task-panel__main { padding: 18px 16px; }

@@ -500,7 +500,7 @@ export function App() {
   const RoleIcon = role.icon;
 
   useEffect(() => {
-    if (window.matchMedia("(max-width: 860px)").matches) {
+    if (window.matchMedia("(min-width: 601px) and (max-width: 860px)").matches) {
       stepButtonRefs.current[step]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
   }, [step]);
@@ -554,7 +554,7 @@ export function App() {
 
         <nav className="walkthrough-steps" aria-label="Ten-minute review walkthrough">
           {STEPS.map((item, index) => (
-            <div className="step-wrap" key={item.title}>
+            <div className={`step-wrap ${index === step ? "is-current" : ""}`} key={item.title}>
               <button ref={(node) => { stepButtonRefs.current[index] = node; }} className={`step-button ${index === step ? "is-current" : ""} ${index < step ? "is-complete" : ""}`} type="button" onClick={() => goToStep(index)} aria-current={index === step ? "step" : undefined}>
                 <span className="step-number">{index + 1}</span>
                 <span className="step-copy"><strong>{item.title}</strong><small>{item.subtitle}</small><em>{item.minutes} · DEMO</em></span>

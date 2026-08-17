@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile overlap QA</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #111827; color: #fff; font-family: ui-sans-serif, system-ui, sans-serif; }
+      header { padding: 18px 24px; font-weight: 800; letter-spacing: .04em; }
+      main { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+      figure { margin: 0; min-width: 0; background: #1f2937; padding-bottom: 20px; }
+      figcaption { padding: 12px 18px; font-size: 13px; font-weight: 750; }
+      .image { min-height: 900px; padding: 12px; background: #f7f8fb; display: flex; justify-content: center; align-items: flex-start; }
+      img { display: block; max-width: 100%; height: auto; }
+      .source img { width: 591px; }
+      .fixed img { width: 390px; }
+    </style>
+  </head>
+  <body>
+    <header>VALORIS MOBILE HEADER / STEPPER QA</header>
+    <main>
+      <figure>
+        <figcaption>Reported iOS Safari — overlapping header and clipped step</figcaption>
+        <div class="image source"><img src="/qa/mobile-reported-overlap-materials.jpg" alt="Reported mobile header overlap" /></div>
+      </figure>
+      <figure>
+        <figcaption>Fixed responsive viewport — separated rows and one complete active step</figcaption>
+        <div class="image fixed"><img src="/qa/mobile-header-fixed-390x844.png" alt="Fixed mobile header and active step" /></div>
+      </figure>
+    </main>
+  </body>
+</html>
