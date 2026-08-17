@@ -24,6 +24,15 @@ import {
   Warning,
   X,
 } from "@phosphor-icons/react";
+import { createReviewPacket, formatReviewPacket, REVIEW_FIXTURE_VERSION } from "./reviewPacket.js";
+
+const INITIAL_FEEDBACK = {
+  recommendation: "Revise the packet",
+  clear: "",
+  concerns: "",
+  blocked: "Cryptographic suite selection remains BLOCKED_UNVERIFIED.",
+  conflictDisclosed: false,
+};
 
 const ROLES = [
   {
@@ -322,30 +331,42 @@ function LimitationsStep() {
   );
 }
 
-function FeedbackStep({ feedback, setFeedback, submitted, setSubmitted }) {
+function FeedbackStep({ feedback, setFeedback, submitted, setSubmitted, role, onReset }) {
+  const [copyStatus, setCopyStatus] = useState("");
+  const reviewPacket = useMemo(() => createReviewPacket(role, feedback), [feedback, role]);
+
   function updateField(field, value) {
     setFeedback((current) => ({ ...current, [field]: value }));
     setSubmitted(false);
+    setCopyStatus("");
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     setSubmitted(true);
+    setCopyStatus("");
   }
 
   function downloadFeedback() {
-    const payload = {
-      classification: "DEMO/SYNTHETIC",
-      notice: "Training feedback only. No scientific, security, cryptographic, or independence approval.",
-      ...feedback,
-    };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify(reviewPacket, null, 2)], { type: "application/json" });
     const href = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = href;
-    link.download = "valoris-demo-review-feedback.json";
+    link.download = "valoris-demo-review-handoff.json";
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(href);
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(href), 0);
+    setCopyStatus("DEMO JSON handoff download started.");
+  }
+
+  async function copyFeedback() {
+    try {
+      await navigator.clipboard.writeText(formatReviewPacket(reviewPacket));
+      setCopyStatus("DEMO review handoff copied.");
+    } catch {
+      setCopyStatus("Copy unavailable. Download the DEMO JSON instead.");
+    }
   }
 
   return (
@@ -377,18 +398,38 @@ function FeedbackStep({ feedback, setFeedback, submitted, setSubmitted }) {
         </label>
       </div>
       <label className="conflict-check">
-        <input type="checkbox" checked={feedback.conflictDisclosed} onChange={(event) => updateField("conflictDisclosed", event.target.checked)} />
+        <input type="checkbox" required checked={feedback.conflictDisclosed} onChange={(event) => updateField("conflictDisclosed", event.target.checked)} />
         <span>I reviewed the conflict and relationship reminder for this DEMO exercise.</span>
       </label>
+      <div className="session-note"><Info size={18} weight="duotone" /><span>Session-only by design: nothing is stored, uploaded, or sent. DEMO / SYNTHETIC.</span></div>
       <div className="feedback-actions">
         <button className="primary-button" type="submit"><CheckCircle size={19} weight="duotone" /> Generate review summary</button>
-        <button className="secondary-button" type="button" onClick={downloadFeedback} disabled={!submitted}><DownloadSimple size={18} /> Download DEMO JSON</button>
       </div>
       {submitted && (
-        <div className="success-message" role="status">
-          <CheckCircle size={22} weight="fill" />
-          <div><strong>DEMO review summary generated.</strong><span>Nothing was sent or uploaded. This summary exists only in your current browser session unless downloaded.</span></div>
-        </div>
+        <section className="review-summary" aria-labelledby="review-summary-title">
+          <div className="success-message" role="status">
+            <CheckCircle size={22} weight="fill" />
+            <div><strong id="review-summary-title">DEMO review handoff generated.</strong><span>Nothing was sent or uploaded. Copy or download it only if you choose to share it.</span></div>
+          </div>
+          <div className="review-summary__meta">
+            <div><span>Perspective <FixtureLabel /></span><strong>{role.label} · DEMO</strong></div>
+            <div><span>Fixture <FixtureLabel kind="SYNTHETIC" /></span><strong>{REVIEW_FIXTURE_VERSION} · DEMO</strong></div>
+            <div><span>Recommendation <FixtureLabel /></span><strong>{feedback.recommendation} · DEMO</strong></div>
+            <div><span>Conflict reminder <FixtureLabel /></span><strong>Reviewed · DEMO</strong></div>
+          </div>
+          <dl className="review-summary__details">
+            <div><dt>What is clear <FixtureLabel /></dt><dd>{feedback.clear.trim() || "Not provided"} · DEMO</dd></div>
+            <div><dt>What needs work <FixtureLabel /></dt><dd>{feedback.concerns.trim() || "Not provided"} · DEMO</dd></div>
+            <div><dt>Blocked decisions <FixtureLabel kind="SYNTHETIC" /></dt><dd>{feedback.blocked.trim() || "Not provided"} · DEMO</dd></div>
+          </dl>
+          <div className="summary-boundary-note"><ShieldWarning size={18} weight="duotone" /><span>Cryptography remains BLOCKED_UNVERIFIED. This handoff does not approve science, security, production readiness, or independence.</span></div>
+          <div className="summary-actions">
+            <button className="secondary-button" type="button" onClick={onReset}><ArrowLeft size={18} /> Reset DEMO session</button>
+            <button className="secondary-button" type="button" onClick={copyFeedback}><Copy size={18} /> Copy DEMO handoff</button>
+            <button className="primary-button" type="button" onClick={downloadFeedback}><DownloadSimple size={18} /> Download DEMO JSON</button>
+          </div>
+          <span className="copy-status" role="status" aria-live="polite">{copyStatus}</span>
+        </section>
       )}
     </form>
   );
@@ -453,13 +494,7 @@ export function App() {
   const [step, setStep] = useState(2);
   const [showAdrPacket, setShowAdrPacket] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [feedback, setFeedback] = useState({
-    recommendation: "Revise the packet",
-    clear: "",
-    concerns: "",
-    blocked: "Cryptographic suite selection remains BLOCKED_UNVERIFIED.",
-    conflictDisclosed: false,
-  });
+  const [feedback, setFeedback] = useState(INITIAL_FEEDBACK);
   const stepButtonRefs = useRef([]);
   const role = useMemo(() => ROLES.find((item) => item.id === roleId), [roleId]);
   const RoleIcon = role.icon;
@@ -472,6 +507,14 @@ export function App() {
 
   function goToStep(nextStep) {
     setStep(Math.max(0, Math.min(STEPS.length - 1, nextStep)));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function resetDemo() {
+    setRoleId("reviewer");
+    setStep(0);
+    setSubmitted(false);
+    setFeedback(INITIAL_FEEDBACK);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -548,7 +591,7 @@ export function App() {
             {step === 1 && <ApproachStep />}
             {step === 2 && <EvidenceStep />}
             {step === 3 && <LimitationsStep />}
-            {step === 4 && <FeedbackStep feedback={feedback} setFeedback={setFeedback} submitted={submitted} setSubmitted={setSubmitted} />}
+            {step === 4 && <FeedbackStep feedback={feedback} setFeedback={setFeedback} submitted={submitted} setSubmitted={setSubmitted} role={role} onReset={resetDemo} />}
           </section>
 
           <aside className="task-panel" aria-label="Synthetic review task">

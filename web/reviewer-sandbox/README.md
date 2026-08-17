@@ -8,7 +8,8 @@ A public-safe, static, synthetic walkthrough for evaluating the Valoris reviewer
 - Cryptographic choices remain `BLOCKED_UNVERIFIED`.
 - The sandbox makes no scientific, security, production, or independence claim.
 - It has no backend, authentication, uploads, executable schemas, private materials, workers, payments, or production infrastructure.
-- Feedback remains in browser memory unless the reviewer explicitly downloads the DEMO JSON file.
+- Feedback remains in browser memory unless the reviewer explicitly copies or downloads the DEMO handoff.
+- The generated handoff is role-aware, includes conflict and blocked-decision fields, preserves the non-approval boundaries, and can be reset without persistence.
 
 ## Local commands
 

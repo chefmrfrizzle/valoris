@@ -36,5 +36,9 @@ test("limits runtime dependencies to static interface libraries", () => {
 test("keeps structured feedback local until an explicit download", () => {
   assert.match(appSource, /Nothing was sent or uploaded/);
   assert.match(appSource, /URL\.createObjectURL/);
+  assert.match(appSource, /link\.download = "valoris-demo-review-handoff\.json"/);
+  assert.match(appSource, /setTimeout\(\(\) => URL\.revokeObjectURL\(href\), 0\)/);
+  assert.match(appSource, /Reset DEMO session/);
+  assert.match(appSource, /Copy DEMO handoff/);
   assert.doesNotMatch(appSource, /<form[^>]+action=/);
 });
