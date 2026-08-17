@@ -25,3 +25,7 @@ The selected design direction and implementation constraints are recorded in `AG
 ## Vercel preview
 
 `vercel.json` deploys only `dist/client` as a static site and applies restrictive browser security headers. Vercel link metadata and local environment files remain ignored and must never be committed.
+
+Live mobile-ready deployment: https://valoris-reviewer-sandbox.vercel.app
+
+Deployment evidence is recorded in `DEPLOYMENT.md`.

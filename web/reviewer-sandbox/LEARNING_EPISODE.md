@@ -7,4 +7,4 @@
 - **Failure observed:** At 390 CSS pixels the horizontal walkthrough initially opened on steps 1–2 while active step 3 was offscreen.
 - **Correction:** Center the active step on initial responsive render and after navigation; retain the current step in view without changing desktop layout.
 - **Evidence:** Desktop and mobile browser captures, side-by-side design comparisons, interaction checks, zero console warnings/errors, passing static build, 4/4 sandbox-boundary tests, and 4/4 static-host packaging tests in `design-qa.md`.
-- **Promotion decision:** Local prototype is ready for founder inspection. No deployment, publication, policy acceptance, or production promotion is implied.
+- **Promotion decision:** The static prototype was published to a dedicated Vercel project for founder and reviewer inspection. Vercel assigned the first deployment to its production target automatically; this makes the static interface reachable but does not imply protocol production readiness, policy acceptance, scientific acceptance, or independence assurance.
