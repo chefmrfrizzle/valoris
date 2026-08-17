@@ -21,3 +21,7 @@ npm run test:sites
 ```
 
 The selected design direction and implementation constraints are recorded in `AGENTS.md`. Visual verification is recorded in `design-qa.md`.
+
+## Vercel preview
+
+`vercel.json` deploys only `dist/client` as a static site and applies restrictive browser security headers. Vercel link metadata and local environment files remain ignored and must never be committed.
