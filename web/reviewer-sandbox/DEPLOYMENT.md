@@ -22,3 +22,14 @@
 ## Boundaries
 
 The deployment remains DEMO/SYNTHETIC. It makes no scientific, security, cryptographic, production-readiness, or independence claim. Local Vercel link metadata and environment files are ignored and are not committed.
+
+## Reviewer handoff preview — 2026-08-17
+
+- **Preview URL:** https://valoris-reviewer-sandbox-aeybsb0lk-halalmfs-projects.vercel.app
+- **Deployment ID:** `dpl_3YjYLjAWMLs5aEN8DUAjwP46JqYj`
+- **Target:** Preview; the stable production alias was not promoted or changed.
+- **Source commit:** `2abf130c878875ca7a51cd6d1dd61efded7c15fd`
+- **Status:** `READY`
+- **Build artifact:** `index-CAorDIqP.js` and `index-wMgKUQ3e.css` from the static Vite output.
+- **Live verification:** Exact deployed title and synthetic boundaries rendered successfully. At 390 × 844 CSS pixels, the role-aware step-5 handoff generated for Materials Science, all three handoff actions remained reachable, document width stayed 390 with no horizontal overflow, and the console had zero warnings or errors.
+- **Production check after preview:** `https://valoris-reviewer-sandbox.vercel.app` remained deployment `dpl_Ff6fq9pDQx5LyAiPi8QKKxVvkMqi`, target `production`, status `READY`, and returned HTTP 200.
