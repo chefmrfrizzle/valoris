@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reviewer Sandbox Focused Design QA</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #111827; color: #fff; font-family: ui-sans-serif, system-ui, sans-serif; }
+      header { height: 42px; display: flex; align-items: center; padding: 0 16px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+      figure { margin: 0; min-width: 0; background: #1f2937; }
+      figcaption { height: 34px; display: flex; align-items: center; padding: 0 14px; font-size: 11px; font-weight: 750; }
+      .crop { width: 100%; overflow: hidden; background: #f7f8fb; }
+      .crop img { width: 100%; height: auto; display: block; }
+      .header-crop { height: 158px; }
+      .main-crop { height: 390px; }
+      .source-main img { transform: translateY(-152px); }
+      .implementation-main img { transform: translateY(-150px); }
+    </style>
+  </head>
+  <body>
+    <header>Focused QA — header / walkthrough and evidence workspace</header>
+    <div class="grid">
+      <figure>
+        <figcaption>Source — header and walkthrough</figcaption>
+        <div class="crop header-crop"><img src="/qa/source-option-1.png" alt="Source header and walkthrough" /></div>
+      </figure>
+      <figure>
+        <figcaption>Implementation — header and walkthrough</figcaption>
+        <div class="crop header-crop"><img src="/qa/implementation-pass-2.png" alt="Implementation header and walkthrough" /></div>
+      </figure>
+      <figure>
+        <figcaption>Source — evidence workspace</figcaption>
+        <div class="crop main-crop source-main"><img src="/qa/source-option-1.png" alt="Source evidence workspace" /></div>
+      </figure>
+      <figure>
+        <figcaption>Implementation — evidence workspace</figcaption>
+        <div class="crop main-crop implementation-main"><img src="/qa/implementation-pass-2.png" alt="Implementation evidence workspace" /></div>
+      </figure>
+    </div>
+  </body>
+</html>
