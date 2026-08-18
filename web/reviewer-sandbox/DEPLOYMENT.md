@@ -60,3 +60,15 @@ The deployment remains DEMO/SYNTHETIC. It makes no scientific, security, cryptog
 - **Reported-versus-fixed evidence:** `qa/mobile-overlap-source-vs-fixed.png`; focused corrected captures are in `qa/mobile-header-fixed-390x844.png`, `qa/mobile-header-fixed-320x800.png`, and `qa/desktop-header-fixed-1440x1024.png`.
 - **Headers and observability:** restrictive CSP, framing denial, disabled camera/microphone/geolocation, no-referrer, MIME-sniffing protection, HSTS, and `noindex` remained active. The post-deploy runtime error scan returned no logs, expected for this static deployment.
 - **Boundary confirmation:** the promoted artifact remains static and synthetic, keeps cryptography `BLOCKED_UNVERIFIED`, and introduces no backend, authentication, uploads, API routes, Vercel Functions, private materials, or scientific/independence claims.
+
+## Functional perspective selector — 2026-08-17
+
+- **Validated source commit:** `32f7e3047c20ba2b0806c1386b0ad7b359d401f2`.
+- **Validated preview:** `dpl_BXDijKNvLS87RM7nzXuuCdUnmbXV` at `https://valoris-reviewer-sandbox-cy1ipox2b-halalmfs-projects.vercel.app`, target `preview`, status `READY`. Browser access remained deployment-protected; Vercel-authenticated retrieval verified the exact artifact before promotion.
+- **Resulting production deployment:** `dpl_HtfKgVR5R9pvhjbxmYm5xkSWrWJK` at `https://valoris-reviewer-sandbox-p9rm6in6v-halalmfs-projects.vercel.app`, target `production`, status `READY`.
+- **Stable public alias:** https://valoris-reviewer-sandbox.vercel.app returned HTTP 200 and resolved to the resulting production deployment.
+- **Artifact identity:** production serves `index-_9axtI6i.js` and `index-D7JI5rEz.css`, exactly matching the promoted prebuilt preview. JS SHA-256: `221cd60bef6f62a405c964cafc260ab2a6c311fd827fcc0396c94613527c6a04`; CSS SHA-256: `3bc359bbf0e6d5f722474672dd4ff332f0439e19c61c3a31fafae7ccb455f816`.
+- **Interaction gate:** on the public alias at 390 × 844, the top selector changed to Cryptography and synchronized the lower active role plus ADR-0012 packet; the lower Materials Science role then synchronized the top selector plus ADR-0010/ADR-0014 packet. `DEMO / SYNTHETIC` and `BLOCKED_UNVERIFIED` remained visible, with no horizontal overflow or runtime errors.
+- **Regression and accessibility gate:** 9/9 sandbox and review-packet tests passed, 4/4 static-host packaging tests passed, the Vite static build and repository baseline passed, and the final automated WCAG A/AA scan reported zero violations.
+- **Headers and observability:** restrictive CSP, framing denial, disabled camera/microphone/geolocation, no-referrer, MIME-sniffing protection, HSTS, and `noindex` remained active. The post-deploy runtime error scan returned no logs, expected for this static deployment.
+- **Boundary confirmation:** this interaction correction adds no backend, authentication, uploads, persistence, API routes, Vercel Functions, private materials, or scientific/independence claims; cryptography remains `BLOCKED_UNVERIFIED`.
