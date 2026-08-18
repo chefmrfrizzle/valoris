@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+implementation-desktop-1440x1024.png
+implementation-mobile-390x844.png
+.vercel
+.env*
