@@ -527,9 +527,17 @@ export function App() {
           <span>SYNTHETIC FIXTURE</span>
         </div>
         <div className="global-warning"><Warning size={19} weight="duotone" /> DEMO / SYNTHETIC — NO SCIENTIFIC OR INDEPENDENCE CLAIMS</div>
-        <button className="perspective-button" type="button" onClick={() => document.getElementById("role-selector")?.focus()}>
-          Perspective: {role.shortLabel} <CaretDown size={15} />
-        </button>
+        <label className="perspective-control">
+          <span>Perspective:</span>
+          <select
+            aria-label="Select reviewer perspective"
+            value={roleId}
+            onChange={(event) => setRoleId(event.target.value)}
+          >
+            {ROLES.map((item) => <option value={item.id} key={item.id}>{item.shortLabel}</option>)}
+          </select>
+          <CaretDown size={15} aria-hidden="true" />
+        </label>
       </header>
 
       <main className="page-shell">

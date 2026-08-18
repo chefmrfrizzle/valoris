@@ -47,7 +47,14 @@ test("keeps structured feedback local until an explicit download", () => {
 test("keeps mobile header labels and the active walkthrough step inside their cards", () => {
   assert.match(appSource, /step-wrap \$\{index === step \? "is-current" : ""\}/);
   assert.match(styleSource, /\.topbar \{\s*display: grid;\s*grid-template-columns: minmax\(0, 1fr\);/);
-  assert.match(styleSource, /\.perspective-button \{[\s\S]*?width: 100%;[\s\S]*?white-space: normal;/);
+  assert.match(styleSource, /\.perspective-control \{[\s\S]*?width: 100%;[\s\S]*?min-width: 0;/);
   assert.match(styleSource, /\.walkthrough-steps \.step-wrap \{ display: none; width: 100%; \}/);
   assert.match(styleSource, /\.walkthrough-steps \.step-wrap\.is-current \{ display: flex; \}/);
+});
+
+test("keeps the top perspective selector synchronized with every reviewer role", () => {
+  assert.match(appSource, /<select\s+aria-label="Select reviewer perspective"\s+value=\{roleId\}\s+onChange=\{\(event\) => setRoleId\(event\.target\.value\)\}/);
+  assert.match(appSource, /ROLES\.map\(\(item\) => <option value=\{item\.id\} key=\{item\.id\}>\{item\.shortLabel\}<\/option>\)/);
+  assert.match(appSource, /role="radiogroup"/);
+  assert.match(appSource, /onClick=\{\(\) => setRoleId\(item\.id\)\}/);
 });

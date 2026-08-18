@@ -17,6 +17,9 @@
 - Corrected narrow-mobile implementation, 320 CSS pixels: `/Users/monikacruz/Desktop/Valoris/valoris-reviewer-sandbox/web/reviewer-sandbox/qa/mobile-header-fixed-320x800.png`
 - Corrected desktop implementation: `/Users/monikacruz/Desktop/Valoris/valoris-reviewer-sandbox/web/reviewer-sandbox/qa/desktop-header-fixed-1440x1024.png`
 - Reported-versus-corrected full-view comparison: `/Users/monikacruz/Desktop/Valoris/valoris-reviewer-sandbox/web/reviewer-sandbox/qa/mobile-overlap-source-vs-fixed.png`
+- Functional perspective selector, mobile Cryptography: `/Users/monikacruz/Desktop/Valoris/valoris-reviewer-sandbox/web/reviewer-sandbox/qa/perspective-selector-mobile-cryptography-390x844.png`
+- Functional perspective selector, narrow-mobile Materials Science: `/Users/monikacruz/Desktop/Valoris/valoris-reviewer-sandbox/web/reviewer-sandbox/qa/perspective-selector-mobile-materials-320x800.png`
+- Functional perspective selector, desktop Identity & IT: `/Users/monikacruz/Desktop/Valoris/valoris-reviewer-sandbox/web/reviewer-sandbox/qa/perspective-selector-desktop-identity-1440x1024.png`
 
 ## Normalization
 
@@ -73,6 +76,22 @@
 
 - Post-fix evidence: all four roles were checked at 390 × 844; the longest Materials Science label was also checked at 320 × 800; desktop was checked at 1440 × 1024. Brand, perspective control, warning, and active walkthrough card remained contained with no document overflow or console warnings/errors.
 
+### Perspective interaction correction
+
+- [P1] The top Perspective control looked like a selector but only focused the lower Reviewer button.
+  - Location: top bar on mobile and desktop.
+  - Evidence: the earlier implementation rendered a caret-bearing button whose click handler called `focus()` on the first role button; it could not select Cryptography, Identity & IT, or Materials Science. The corrected captures show a native selector synchronized with the active lower radio button and role-specific task content.
+  - Impact: users reasonably expected the top control to change viewpoints, but it performed no perspective change.
+  - Fix: replace the focus-only button with an accessible controlled `select` backed by the same `roleId` state as the four lower role buttons.
+
+- [P2] Automated WCAG checks found insufficient contrast in the orange warning and seven-pixel evidence metadata.
+  - Location: global warning and evidence-table secondary labels.
+  - Evidence: the initial axe run reported one serious color-contrast violation affecting 13 nodes. The corrected run reports zero violations; eight gradient-backed nodes remain machine-incomplete and were visually inspected.
+  - Impact: low-vision reviewers could struggle to read safety labels and evidence metadata.
+  - Fix: darken the semantic orange token and use the existing accessible muted token for evidence metadata.
+
+- Post-fix interaction evidence: the top selector changed Reviewer → Cryptography and synchronized the lower active role, role-specific goal, and ADR-0012 packet at 390 × 844. The lower Materials Science button synchronized the top selector and switched the focus/ADR packet. Identity & IT passed from the top selector at 1440 × 1024; Materials Science passed at 320 × 800. No overflow, runtime errors, or console warnings were observed.
+
 ## Required fidelity surfaces
 
 - Fonts and typography: matches the existing Valoris Inter/system UI stack, with comparable weight, line height, hierarchy, and wrapping. Small fixture labels use a compact optical treatment without replacing body copy.
@@ -88,7 +107,7 @@
 - Primary interactions tested: role changes to Cryptography and Identity & IT; exact BLOCKED_UNVERIFIED status in the role ADR packet; dialog open/close; evidence expansion; step 3 → 4 → 5 progression; feedback text entry; incomplete submission blocked by the required conflict reminder; role-aware summary generation; plain-text copy; a browser-created `valoris-demo-review-handoff.json` download; and clean-session reset to Reviewer / step 1.
 - Console warnings/errors: none on desktop or responsive QA frame.
 - Static build: passed.
-- Static sandbox and review-packet tests: 8 passed, 0 failed.
+- Static sandbox and review-packet tests: 9 passed, 0 failed.
 - Sites-compatible static packaging tests: 4 passed, 0 failed.
 - Responsive handoff measurement at 390 × 844: document width 390, no horizontal overflow, one-column summary metadata, vertically stacked actions, active step 5 visible.
 
@@ -103,6 +122,8 @@
 7. User-supplied iOS evidence exposed a P1 top-bar collision and P2 walkthrough clipping that were not reproduced by the earlier centered-step check.
 8. The mobile header now uses three explicit rows, and phone widths show only the complete active walkthrough step. A combined source-versus-fixed comparison confirms both reported failures are removed.
 9. Post-fix checks covered Reviewer, Cryptography, Identity & IT, and Materials Science at 390 × 844, the longest label at 320 × 800, and the unchanged desktop composition at 1440 × 1024.
+10. User testing exposed that the top Perspective affordance was focus-only. It is now a native controlled selector synchronized bidirectionally with the lower role buttons and role-specific content.
+11. The selector passed mobile and desktop interaction checks. A follow-up axe run reports zero WCAG A/AA violations after correcting two contrast tokens.
 
 ## Implementation checklist
 
@@ -116,5 +137,7 @@
 - [x] Generate a role-aware, session-only review handoff with explicit conflict and blocked-decision fields.
 - [x] Verify copy, JSON download, clean reset, mobile stacking, and the unchanged source-comparison state.
 - [x] Prevent mobile brand/perspective overlap and clipped walkthrough labels at 320–600 CSS pixels.
+- [x] Make the top Perspective control select and synchronize every reviewer role on mobile and desktop.
+- [x] Resolve automated warning/metadata contrast violations introduced or exposed by the interaction review.
 
 final result: passed
